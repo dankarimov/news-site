@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles/main.css">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fake</title>
+</head>
+<body>
+  <div class="container">
+    <div class="banner">
+      <nav class="nav">
+        <div class="logo">
+          <a href="/">
+            <img src="img/logo.png">
+          </a>
+        </div>
+        <div>
+          <div class="nav-item">
+            <a href="#!">О нас</a>
+          </div>
+          <div class="nav-item">
+            <a href="#!">Методика</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <a href="/fakenews/new" class="add-article btn btn-success">Новая статья</a>
+
+    <% articles.forEach(article => { %>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title"><%= article.title %></h4>
+          <p class="content"><%- article.sanitizedHtml.substring(0, 100).trim() + "..." %></p>
+          <div class="card-subtitle text-muted mb-2">
+            <%= article.createdAt.toLocaleDateString() %>
+          </div>
+          <div class="card-text mb-2"><%= article.description %></div>
+          <a href="fakenews/<%= article.slug %>" class="btn btn-primary">Читать полностью</a>
+          <a href="fakenews/edit/<%= article.id %>" class="btn btn-info">Правка</a>
+          <form action="/fakenews/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">Удалить</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</body>
+</html>
